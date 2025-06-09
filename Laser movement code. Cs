@@ -1,0 +1,32 @@
+
+
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class LaserMovement : MonoBehaviour
+{
+    public float moveDistance = 2f;     // How far the laser moves up and down
+    public float moveSpeed = 2f;        // Speed of the movement
+
+    private Vector3 startPos;
+
+    void Start()
+    {
+        startPos = transform.position;
+    }
+
+    void Update()
+    {
+        float offset = Mathf.Sin(Time.time * moveSpeed) * moveDistance;
+        transform.position = startPos + new Vector3(0f, offset, 0f);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Hi!");
+            SceneManager.LoadScene(3);  // Load scene with index 3
+        }
+    }
+}
